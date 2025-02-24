@@ -1,0 +1,34 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-I./inc",
+      "-g",
+      "-c",
+      "-o",
+      "build/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/carver/Documents/words_selection",
+    "file": "/home/carver/Documents/words_selection/src/main.c",
+    "output": "/home/carver/Documents/words_selection/build/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-I./inc",
+      "-g",
+      "-c",
+      "-o",
+      "build/mlayer.o",
+      "src/mlayer.c"
+    ],
+    "directory": "/home/carver/Documents/words_selection",
+    "file": "/home/carver/Documents/words_selection/src/mlayer.c",
+    "output": "/home/carver/Documents/words_selection/build/mlayer.o"
+  }
+]
