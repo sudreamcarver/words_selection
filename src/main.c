@@ -6,6 +6,9 @@
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <unistd.h>
+
+#define clearscreen printf("\033[2J\033[H");
+
 extern int num_options;
 extern int mlayer_index;
 
@@ -58,22 +61,8 @@ int get_terminal_width() {
   return w.ws_col;
 }
 
-// print function selection
-// void print_centered(const char *text) {
-// int terminal_width = get_terminal_width();
-// int text_length = strlen(text);
-// int left_padding = (terminal_width - text_length) / 2;
-//
-// for (int i = 0; i < left_padding; i++) {
-// printf(" ");
-//}
-// printf("%s\n", text);
-//}
-//
-
 void screen_flash() {
-  printf("\033[2J\033[H");
-  print_figlet();
+  clearscreen print_figlet();
   if (mlayer_index == 0) {
     print_selected("recite");
     print_centered("spell");
@@ -113,10 +102,22 @@ int main() {
       break;
     case 'q':
       goto exit_loop;
-    default:
-      break;
+    case '\n':
+      while (1) {
+        switch (mlayer_index) {
+        case 0:
+          clearscreen print_centered("recite");
+        case 1:
+          clearscreen print_centered("spell");
+        case 2:
+          clearscreen print_centered("change words list");
+        }
+      default:
+        break;
+      }
     }
   }
+
 exit_loop:
   DisableRawMode();
   return 0;
