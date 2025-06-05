@@ -1,4 +1,6 @@
+#include "common.h"
 #include "mlayer.h"
+#include "print_ui.h"
 #include <asm-generic/ioctls.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,10 +9,9 @@
 #include <termios.h>
 #include <unistd.h>
 
-#define clearscreen printf("\033[2J\033[H");
-
 extern int num_options;
-extern int mlayer_index;
+extern int screen_flash_index;
+extern int layer_index;
 
 // for store original terminal information
 struct termios original_termios;
@@ -62,16 +63,17 @@ int get_terminal_width() {
 }
 
 void screen_flash() {
-  clearscreen print_figlet();
-  if (mlayer_index == 0) {
+  clearscreen;
+  print_figlet();
+  if (screen_flash_index == 0) {
     print_selected("recite");
     print_centered("spell");
     print_centered("change words list");
-  } else if (mlayer_index == 1) {
+  } else if (screen_flash_index == 1) {
     print_centered("recite");
     print_selected("spell");
     print_centered("change words list");
-  } else if (mlayer_index == 2) {
+  } else if (screen_flash_index == 2) {
     print_centered("recite");
     print_centered("spell");
     print_selected("change words list");
@@ -86,35 +88,72 @@ int main() {
   EnableRawMode();
 
   while (1) {
-
-    char K = getchar();
-
-    switch (K) {
+    char K1 = getchar();
+    switch (K1) {
     case 'j':
-      if (mlayer_index < num_options - 1)
-        mlayer_index++;
+      if (screen_flash_index < num_options - 1) // num_options setted in 3
+        screen_flash_index++;
       screen_flash();
       break;
+
     case 'k':
-      if (mlayer_index > 0)
-        mlayer_index--;
+      if (screen_flash_index > 0)
+        screen_flash_index--;
       screen_flash();
       break;
+
     case 'q':
       goto exit_loop;
     case '\n':
       while (1) {
-        switch (mlayer_index) {
+        // print first
+        switch (screen_flash_index) {
         case 0:
-          clearscreen print_centered("recite");
+          clearscreen;
+          recite_ui();
+          break;
+
         case 1:
-          clearscreen print_centered("spell");
+          clearscreen;
+          spell_ui();
+          break;
+
         case 2:
-          clearscreen print_centered("change words list");
+          clearscreen;
+          change_wordslist_ui();
+          break;
+        default:
+          break;
         }
-      default:
-        break;
+
+        int k2 = getchar();
+        if (k2 == 'B') {
+          clearscreen;
+          screen_flash();
+          break;
+        } else {
+          switch (screen_flash_index) {
+          case 0:
+            clearscreen;
+            recite_ui();
+            break;
+
+          case 1:
+            clearscreen;
+            spell_ui();
+            break;
+
+          case 2:
+            clearscreen;
+            change_wordslist_ui();
+            break;
+          default:
+            break;
+          }
+        }
       }
+    default:
+      break;
     }
   }
 

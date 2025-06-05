@@ -5,7 +5,8 @@
 
 const char *options[] = {"recite", "spell", "change words list"};
 int num_options = sizeof(options) / sizeof(options[0]);
-int mlayer_index = 0;
+int screen_flash_index = 0;
+int layer_index = 0;
 
 extern int get_terminal_width();
 
