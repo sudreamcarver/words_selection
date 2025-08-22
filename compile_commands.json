@@ -5,6 +5,10 @@
       "-Wall",
       "-Wextra",
       "-I./inc",
+      "-isystem",
+      "/usr/include",
+      "-isystem",
+      "/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include",
       "-g",
       "-c",
       "-o",
@@ -21,6 +25,10 @@
       "-Wall",
       "-Wextra",
       "-I./inc",
+      "-isystem",
+      "/usr/include",
+      "-isystem",
+      "/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include",
       "-g",
       "-c",
       "-o",
@@ -30,5 +38,25 @@
     "directory": "/home/carver/Documents/words_selection",
     "file": "/home/carver/Documents/words_selection/src/mlayer.c",
     "output": "/home/carver/Documents/words_selection/build/mlayer.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-I./inc",
+      "-isystem",
+      "/usr/include",
+      "-isystem",
+      "/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include",
+      "-g",
+      "-c",
+      "-o",
+      "build/print_ui.o",
+      "src/print_ui.c"
+    ],
+    "directory": "/home/carver/Documents/words_selection",
+    "file": "/home/carver/Documents/words_selection/src/print_ui.c",
+    "output": "/home/carver/Documents/words_selection/build/print_ui.o"
   }
 ]
